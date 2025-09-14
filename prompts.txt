@@ -17,3 +17,36 @@ Think like a Sr. developer and Build a **Web-Based App (WBA)** that is **install
 * Consistent typography and spacing for a professional feel.
 * Must be **responsive** and **installable as a PWA** for desktop & mobile.”
 
+
+
+Think like a Sr. Developer and architect designed it very well and look good and user friendly 
+Create a **Shipments Form** in the **Shipments page** (Add Shipment) with the following fields as per attached table:
+
+1. **Source** – Choice (TMC, TMAP, TMAP-OIL, TMHC, OTHER)
+2. **Invoice** – Input field (text)
+3. **No of Container** – Number input field
+4. **Container Size** – Choice (40 feet, 20 feet; default = 40 feet)
+5. **Bahrain ETA** – Date format
+6. **Original Document Receipt Date** – Date format
+7. **Actual Bahrain ETA** – Date format
+8. **Last Storage Day** – Date format
+9. **W/H ETA (Requested by Parts)** – Date format
+10. **W/H ETA Confirmed by Logistics** – Date format
+11. **Cleared** – Choice (Yes / No)
+12. **Actual Cleared Date** – Date format
+13. **Total Cases** – Number input
+14. **Dom Lines** – Number input
+15. **Bulk Lines** – Number input
+16. **Total Lines** – Number input
+17. **Remarks 1** – Text field
+18. **Remarks 2** – Text field
+19. **BL No** – Text field
+
+Additional requirements:
+
+* All fields must be properly labeled.
+* Use a **clean form layout** with responsive design.
+* Validation: Ensure required fields cannot be left empty (Source, Invoice, No of Container, Container Size, ETA).
+* Default values (if any) should auto-fill (e.g., Container Size = 40 feet).
+* Save button → Saves to Firestore under `shipments` collection.
+* Cancel button → Returns to Shipments dashboard without saving.
