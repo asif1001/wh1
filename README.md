@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # WBA Dashboard - Shipment Management System
 
 A comprehensive web-based dashboard for managing shipments, tasks, and complaints with Firebase integration and modern responsive design.
@@ -397,6 +396,3 @@ For support and questions:
 ---
 
 **Built with ❤️ by the WBA Team**
-=======
-# wh1
->>>>>>> 452caf46dd2c3a48e639d08e230d132a2f541a24
