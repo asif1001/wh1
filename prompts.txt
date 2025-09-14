@@ -55,3 +55,52 @@ can you rethink on the from of add new shipment and make it look professional fr
 can you rethink on the from of add new shipment and make it look professional from 
 can you rethink on the from of add new shipment and make it look professional from 
 think like a Sr. Architect app developer and make "New Shipment" Modala more bigger to fit desktop screen properly 
+Think like a Sr. Developer and Create a **Task Manager Form** in add task with the following fields:
+
+**Basic Task Details:**
+
+* Task Title (text, required)
+* Description (textarea, optional)
+
+**Assignment & Ownership:**
+
+* Assigned To (dropdown of users)
+* Created By (auto-fill from logged-in user)
+
+**Status & Progress:**
+
+* Status (choice: To Do, In Progress, On Hold, Completed)
+* Priority (choice: Low, Medium, High, Urgent)
+
+**Dates & Deadlines:**
+
+* Start Date (date)
+* Due Date (date)
+* Completion Date (date, auto-filled when status = Completed)
+
+**Categorization:**
+
+* Category / Department (choice list)
+* Project / Reference ID (optional text)
+
+**Progress & Notes:**
+
+* Progress % (slider 0–100)
+* Remarks / Comments (text area)
+
+**Attachments:**
+
+* File Upload (optional)
+
+**System Fields (auto-handled):**
+
+* Task ID (auto-generate)
+* Created At / Updated At (timestamps)
+
+### Requirements:
+
+* Form should be clean and responsive.
+* Mandatory fields: Task Title, Assigned To, Status, Priority, Due Date.
+* Save button → store in Firestore under `tasks` collection.
+* Cancel button → close form without saving.
+ 
