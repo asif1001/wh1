@@ -104,3 +104,4 @@ Think like a Sr. Developer and Create a **Task Manager Form** in add task with t
 * Save button → store in Firestore under `tasks` collection.
 * Cancel button → close form without saving.
  
+instate of creating "Create New Task" modala can we make this from inside the page ?
