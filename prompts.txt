@@ -51,46 +51,6 @@ Additional requirements:
 * Save button → Saves to Firestore under `shipments` collection.
 * Cancel button → Returns to Shipments dashboard without saving.
 
-Modify the Shipment Monitor page to view added shipment so that it displays the following shipment information
-1) Source 
-2) Invoice 
-3) No of Container 
-4) Container Size 
-5) Bahrain ETA 
-6) W/H ETA (Requested by Parts)
-7) Total Cases 
-8) Dom Lines 
-9) Bulk Lines 
-10) BL No 
-11) Shipping Liner Arrival Expected Date (Date format)
-
-Additional requirements:
-Ensure the table headers are clearly labeled.
-Support sorting and filtering by Source, Invoice, ETA, status if available.
-Display dates in DD-MMM-YYYY format.
-Align number fields (cases, containers, lines) to the right.
-Ensure responsive design so the table fits well on desktop and mobile.
-Each row should correspond to one shipment record stored in Firestore under the shipments collection.
-Add a quick view/edit button for each row that opens the full shipment detail form.
-Think like a Sr. architect  app designer and 
-Modify the Shipment Monitor page to view added shipment so that it displays the following shipment information
-1) Source 
-2) Invoice 
-3) No of Container 
-4) Container Size 
-5) Bahrain ETA 
-6) W/H ETA (Requested by Parts)
-7) Total Cases 
-8) Dom Lines 
-9) Bulk Lines 
-10) BL No 
-11) Shipping Liner Arrival Expected Date (Date format)
-
-Additional requirements:
-Ensure the table headers are clearly labeled.
-Support sorting and filtering by Source, Invoice, ETA, status if available.
-Display dates in DD-MMM-YYYY format.
-Align number fields (cases, containers, lines) to the right.
-Ensure responsive design so the table fits well on desktop and mobile.
-Each row should correspond to one shipment record stored in Firestore under the shipments collection.
-Add a quick view/edit button for each row that opens the full shipment detail form.
+can you rethink on the from of add new shipment and make it look professional from 
+can you rethink on the from of add new shipment and make it look professional from 
+can you rethink on the from of add new shipment and make it look professional from 

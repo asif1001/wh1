@@ -94,9 +94,9 @@
                         <p class="text-gray-600">Track your shipments in real-time</p>
                     </div>
                     <div class="mt-4 md:mt-0">
-                        <a href="add-shipment.html" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg flex items-center">
+                        <button onclick="openShipmentForm()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg flex items-center">
                             <i data-feather="plus" class="mr-2"></i> New Shipment
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -141,88 +141,177 @@
                 </div>
             </div>
 
+            <!-- Shipment Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow p-6" data-aos="fade-up">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-gray-800">WB12345</h3>
+                            <p class="text-gray-600 text-sm">New York to Los Angeles</p>
+                        </div>
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">On Time</span>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Progress</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between text-sm">
+                        <div>
+                            <p class="text-gray-600">Expected Delivery</p>
+                            <p class="font-medium">May 20, 2023</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Last Update</p>
+                            <p class="font-medium">May 15, 2023</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-gray-800">WB67890</h3>
+                            <p class="text-gray-600 text-sm">Chicago to Miami</p>
+                        </div>
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Delayed</span>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Progress</span>
+                            <span>30%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-600 h-2 rounded-full" style="width: 30%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between text-sm">
+                        <div>
+                            <p class="text-gray-600">Expected Delivery</p>
+                            <p class="font-medium">May 25, 2023</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Last Update</p>
+                            <p class="font-medium">May 14, 2023</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-gray-800">WB54321</h3>
+                            <p class="text-gray-600 text-sm">Los Angeles to New York</p>
+                        </div>
+                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">On Time</span>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Progress</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between text-sm">
+                        <div>
+                            <p class="text-gray-600">Expected Delivery</p>
+                            <p class="font-medium">May 18, 2023</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Last Update</p>
+                            <p class="font-medium">May 17, 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Shipment Table -->
             <div class="bg-white rounded-xl shadow overflow-hidden" data-aos="fade-up">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Source</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">No of Containers</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Container Size</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bahrain ETA</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">W/H ETA (Requested by Parts)</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Cases</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Dom Lines</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Bulk Lines</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BL No</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shipping Liner Arrival Expected</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shipment ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progress</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expected Delivery</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Sample shipment data - in real app this would come from Firestore -->
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TMC</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV-2023-001</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">40 feet</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">15-May-2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20-May-2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">150</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">25</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">125</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">BL-789456</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">14-May-2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">WB12345</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">New York → Los Angeles</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">On Time</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-600 h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 20, 2023</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <button class="text-indigo-600 hover:text-indigo-900 mr-3">
                                         <i data-feather="eye" class="w-4 h-4"></i>
                                     </button>
                                     <button class="text-gray-600 hover:text-gray-900">
-                                        <i data-feather="edit" class="w-4 h-4"></i>
+                                        <i data-feather="more-vertical" class="w-4 h-4"></i>
                                     </button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TMAP</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV-2023-002</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20 feet</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">18-May-2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">22-May-2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">75</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">10</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">65</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">BL-123789</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">17-May-2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">WB67890</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Chicago → Miami</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Delayed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-600 h-2 rounded-full" style="width: 30%"></div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 25, 2023</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <button class="text-indigo-600 hover:text-indigo-900 mr-3">
                                         <i data-feather="eye" class="w-4 h-4"></i>
                                     </button>
                                     <button class="text-gray-600 hover:text-gray-900">
-                                        <i data-feather="edit" class="w-4 h-4"></i>
+                                        <i data-feather="more-vertical" class="w-4 h-4"></i>
                                     </button>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TMHC</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">INV-2023-003</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">3</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">40 feet</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">22-May-2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25-May-2023</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">300</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">50</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">250</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">BL-456123</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20-May-2023</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">WB54321</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Los Angeles → New York</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">On Time</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 18, 2023</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <button class="text-indigo-600 hover:text-indigo-900 mr-3">
                                         <i data-feather="eye" class="w-4 h-4"></i>
                                     </button>
                                     <button class="text-gray-600 hover:text-gray-900">
-                                        <i data-feather="edit" class="w-4 h-4"></i>
+                                        <i data-feather="more-vertical" class="w-4 h-4"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -255,6 +344,222 @@
         </nav>
     </div>
 
+    <!-- Enhanced Shipment Form Modal -->
+    <div id="shipmentFormModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white z-10 p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">New Shipment</h2>
+                        <p class="text-gray-600 text-sm mt-1">Fill in all required fields marked with *</p>
+                    </div>
+                    <button onclick="closeShipmentForm()" class="text-gray-500 hover:text-gray-700 transition">
+                        <i data-feather="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <form id="shipmentForm" class="p-6">
+                <!-- Section 1: Basic Information -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-3">
+                            <i data-feather="info" class="w-4 h-4"></i>
+                        </span>
+                        Basic Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Source*</label>
+                            <select name="source" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <option value="">Select Source</option>
+                                <option value="TMC">TMC</option>
+                                <option value="TMAP">TMAP</option>
+                                <option value="TMAP-OIL">TMAP-OIL</option>
+                                <option value="TMHC">TMHC</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Invoice No*</label>
+                            <input type="text" name="invoice" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="Enter invoice number">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">No of Containers*</label>
+                            <input type="number" name="containerCount" required min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Container Size*</label>
+                            <select name="containerSize" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <option value="40" selected>40 feet</option>
+                                <option value="20">20 feet</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Dates -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-3">
+                            <i data-feather="calendar" class="w-4 h-4"></i>
+                        </span>
+                        Date Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Bahrain ETA*</label>
+                            <div class="relative">
+                                <input type="date" name="bahrainETA" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Original Doc Receipt Date</label>
+                            <div class="relative">
+                                <input type="date" name="docReceiptDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Actual Bahrain ETA</label>
+                            <div class="relative">
+                                <input type="date" name="actualBahrainETA" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Last Storage Day</label>
+                            <div class="relative">
+                                <input type="date" name="lastStorageDay" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Warehouse & Clearance -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-3">
+                            <i data-feather="package" class="w-4 h-4"></i>
+                        </span>
+                        Warehouse & Clearance
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">W/H ETA (Requested)</label>
+                            <div class="relative">
+                                <input type="date" name="whETARequested" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">W/H ETA (Confirmed)</label>
+                            <div class="relative">
+                                <input type="date" name="whETAConfirmed" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Cleared</label>
+                            <select name="cleared" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Actual Cleared Date</label>
+                            <div class="relative">
+                                <input type="date" name="actualClearedDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Line Items -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-3">
+                            <i data-feather="list" class="w-4 h-4"></i>
+                        </span>
+                        Line Items
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Total Cases</label>
+                            <input type="number" name="totalCases" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Dom Lines</label>
+                            <input type="number" name="domLines" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Bulk Lines</label>
+                            <input type="number" name="bulkLines" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Total Lines</label>
+                            <input type="number" name="totalLines" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="0">
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 mb-2">BL No</label>
+                            <input type="text" name="blNo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="Enter BL number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Remarks -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-3">
+                            <i data-feather="message-square" class="w-4 h-4"></i>
+                        </span>
+                        Remarks
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Remarks 1</label>
+                            <textarea name="remarks1" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="Additional notes..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Remarks 2</label>
+                            <textarea name="remarks2" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="Additional notes..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form actions -->
+                <div class="sticky bottom-0 bg-white pt-6 pb-4 border-t border-gray-200">
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeShipmentForm()" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition font-medium">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-8 rounded-lg transition transform hover:scale-[1.02] flex items-center">
+                            <i data-feather="save" class="mr-2 w-4 h-4"></i> Save Shipment
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         AOS.init();
         feather.replace();
@@ -267,23 +572,87 @@
         document.getElementById('close-menu').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.add('hidden');
         });
-        
-        // In a real application, this would fetch data from Firestore
-        // Example Firestore integration:
-        /*
-        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-        import { db } from "./firebase-config.js";
-        
-        async function loadShipments() {
-            const querySnapshot = await getDocs(collection(db, "shipments"));
-            querySnapshot.forEach((doc) => {
-                console.log(`${doc.id} => ${doc.data()}`);
-                // Add rows to table dynamically
-            });
+
+        // Enhanced Shipment form functions
+        function openShipmentForm() {
+            const modal = document.getElementById('shipmentFormModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus first input field when modal opens
+            setTimeout(() => {
+                const firstInput = modal.querySelector('input, select, textarea');
+                if (firstInput) firstInput.focus();
+            }, 100);
         }
-        
-        loadShipments();
-        */
+
+        function closeShipmentForm() {
+            document.getElementById('shipmentFormModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementById('shipmentForm').reset();
+        }
+
+        // Form submission with validation
+        document.getElementById('shipmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const shipmentData = Object.fromEntries(formData.entries());
+            
+            // Validate required fields
+            if (!shipmentData.source || !shipmentData.invoice || !shipmentData.containerCount || !shipmentData.containerSize || !shipmentData.bahrainETA) {
+                alert('Please fill in all required fields marked with *');
+                return;
+            }
+            
+            try {
+                // Show loading state
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i data-feather="loader" class="animate-spin mr-2 w-4 h-4"></i> Saving...';
+                feather.replace();
+                
+                // TODO: Connect to Firestore
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Save to Firestore under 'shipments' collection
+                console.log('Shipment data saved:', shipmentData);
+                
+                // Close form after saving
+                closeShipmentForm();
+                
+                // Show success notification
+                showNotification('Shipment saved successfully!', 'success');
+                
+                // TODO: Refresh shipment list
+            } catch (error) {
+                console.error('Error saving shipment:', error);
+                showNotification('Failed to save shipment. Please try again.', 'error');
+            } finally {
+                // Reset button state
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i data-feather="save" class="mr-2 w-4 h-4"></i> Save Shipment';
+                feather.replace();
+            }
+        });
+
+        // Notification function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white font-medium ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'translate-x-4', 'transition-all', 'duration-300');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
