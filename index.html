@@ -24,22 +24,29 @@
                 <p class="text-gray-600 mt-2">Sign in to your account</p>
             </div>
             
-            <form>
+            <form id="loginForm">
                 <div class="mb-5">
                     <label class="block text-gray-700 mb-2" for="email">Email</label>
-                    <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="your@email.com">
+                    <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="admin@wba.com" value="admin@wba.com">
                 </div>
                 
                 <div class="mb-6">
                     <label class="block text-gray-700 mb-2" for="password">Password</label>
-                    <input type="password" id="password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="••••••••">
+                    <input type="password" id="password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="password123" value="password123">
                 </div>
+                
+                <div id="errorMessage" class="mb-4 text-red-600 text-sm hidden"></div>
                 
                 <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02]">
                     Sign In
                 </button>
                 
                 <div class="mt-6 text-center">
+                    <div class="text-gray-600 text-sm mb-2">
+                        <strong>Demo Credentials:</strong><br>
+                        Email: admin@wba.com<br>
+                        Password: password123
+                    </div>
                     <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">Forgot password?</a>
                 </div>
             </form>
@@ -48,5 +55,38 @@
     
     <script>AOS.init();</script>
     <script>feather.replace();</script>
+    <script>
+        // Dummy user credentials
+        const dummyUsers = {
+            'admin@wba.com': 'password123',
+            'user@wba.com': 'user123',
+            'demo@wba.com': 'demo123'
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Clear previous error message
+            errorMessage.classList.add('hidden');
+            
+            // Check credentials
+            if (dummyUsers[email] && dummyUsers[email] === password) {
+                // Store user session
+                localStorage.setItem('loggedInUser', email);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                // Show error message
+                errorMessage.textContent = 'Invalid email or password. Please use the demo credentials shown below.';
+                errorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
