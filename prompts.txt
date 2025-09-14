@@ -1,0 +1,19 @@
+Think like a Sr. developer and Build a **Web-Based App (WBA)** that is **installable as a PWA** on both desktop and mobile. The app should be **professional, modern, colorful, and very user-friendly**.
+
+**Pages Required:**
+
+1. **Login Page** – simple centered login card with company logo, email/password fields, and a primary login button.
+2. **Home Page (Dashboard)** – card-based overview showing key metrics (tasks, shipments, complaints) and quick action buttons.
+3. **Task Manager** – list of tasks with filters, status tags, and a floating ‘Add Task’ button.
+4. **Shipment Monitor** – shipment tracking with table/cards, search bar, filters, and status color indicators (green = on time, red = delayed).
+5. **Complaint Report** – submission form with fields (type, description, file upload) and a list view showing complaints with colored priority labels.
+
+**Design Guidelines:**
+
+* Use a **modern color palette**
+* Card-based layout with rounded corners and shadows.
+* Clear **button hierarchy** (primary, secondary, danger).
+* Navigation: sidebar for desktop, bottom nav for mobile.
+* Consistent typography and spacing for a professional feel.
+* Must be **responsive** and **installable as a PWA** for desktop & mobile.”
+
