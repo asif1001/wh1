@@ -54,3 +54,4 @@ Additional requirements:
 can you rethink on the from of add new shipment and make it look professional from 
 can you rethink on the from of add new shipment and make it look professional from 
 can you rethink on the from of add new shipment and make it look professional from 
+think like a Sr. Architect app developer and make "New Shipment" Modala more bigger to fit desktop screen properly 
