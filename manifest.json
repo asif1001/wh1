@@ -1,0 +1,81 @@
+{
+  "name": "WBA Dashboard - Shipment Management System",
+  "short_name": "WBA Dashboard",
+  "description": "A comprehensive web-based dashboard for managing shipments, tasks, and complaints",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "logistics"],
+  "icons": [
+    {
+      "src": "https://static.photos/abstract/192x192/1",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://static.photos/abstract/512x512/1",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://static.photos/business/1280x720/1",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard Overview"
+    },
+    {
+      "src": "https://static.photos/business/750x1334/1",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View main dashboard",
+      "url": "/dashboard.html",
+      "icons": [
+        {
+          "src": "https://static.photos/abstract/96x96/1",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Shipments",
+      "short_name": "Shipments",
+      "description": "Manage shipments",
+      "url": "/shipments.html",
+      "icons": [
+        {
+          "src": "https://static.photos/abstract/96x96/2",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "short_name": "Tasks",
+      "description": "Manage tasks",
+      "url": "/tasks.html",
+      "icons": [
+        {
+          "src": "https://static.photos/abstract/96x96/3",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
