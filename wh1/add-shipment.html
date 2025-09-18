@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Shipment | WBA</title>
+    <link rel="icon" type="image/x-icon" href="https://static.photos/abstract/320x240/1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4F46E5"/>
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+    <!-- Sidebar (directly included, role-aware) -->
+    <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen p-4">
+        <div class="flex items-center space-x-3 mb-8">
+            <div class="bg-indigo-100 rounded-lg p-2">
+                <i data-feather="box" class="text-indigo-600 w-5 h-5"></i>
+            </div>
+            <span class="text-xl font-bold text-gray-800">WBA Dashboard</span>
+        </div>
+        <nav class="space-y-2 mb-4">
+            <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                <i data-feather="home" class="w-5 h-5 mr-3"></i> Dashboard
+            </a>
+            <a href="tasks.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                <i data-feather="check-square" class="w-5 h-5 mr-3"></i> Tasks
+            </a>
+            <a href="shipments.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                <i data-feather="truck" class="w-5 h-5 mr-3"></i> Shipments
+            </a>
+            <a href="complaints.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                <i data-feather="alert-circle" class="w-5 h-5 mr-3"></i> Complaints
+            </a>
+            <a href="admin-page.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100" id="adminPanelLink">
+                <i data-feather="settings" class="w-5 h-5 mr-3"></i> Admin Panel
+            </a>
+        </nav>
+        <div class="mt-2">
+            <div class="flex items-center space-x-2 mb-2">
+                <i data-feather="user" class="w-4 h-4 text-gray-400"></i>
+                <span class="user-email text-gray-700 text-sm">Loading...</span>
+            </div>
+            <button onclick="logout()" class="flex items-center w-full px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg">
+                <i data-feather="log-out" class="w-5 h-5 mr-2"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Mobile Top Bar -->
+        <header class="md:hidden bg-white shadow-sm p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-100 rounded-lg p-2">
+                    <i data-feather="box" class="text-indigo-600 w-5 h-5"></i>
+                </div>
+                <h1 class="text-lg font-bold text-gray-800">WBA</h1>
+            </div>
+            <button id="menu-toggle" class="text-gray-600">
+                <i data-feather="menu"></i>
+            </button>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white z-50 hidden">
+            <div class="p-4 border-b">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold">Menu</h2>
+                    <button id="close-menu" class="text-gray-600">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+            </div>
+            <nav class="mt-4">
+                <a href="dashboard.html" class="block px-6 py-4 text-gray-600">
+                    <i data-feather="home" class="inline mr-2"></i> Dashboard
+                </a>
+                <a href="tasks.html" class="block px-6 py-4 text-gray-600">
+                    <i data-feather="check-square" class="inline mr-2"></i> Task Manager
+                </a>
+                <a href="shipments.html" class="block px-6 py-4 bg-indigo-50 text-indigo-700 border-l-4 border-indigo-700">
+                    <i data-feather="truck" class="inline mr-2"></i> Shipment Monitor
+                </a>
+                <a href="complaints.html" class="block px-6 py-4 text-gray-600">
+                    <i data-feather="alert-circle" class="inline mr-2"></i> Complaint Report
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6">
+            <div class="mb-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Add New Shipment</h1>
+                        <p class="text-gray-600">Fill in the details for the new shipment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipment Form -->
+            <div class="bg-white rounded-xl shadow p-6" data-aos="fade-up">
+                <form id="shipment-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <!-- Source -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="source">
+                                Source <span class="text-red-500">*</span>
+                            </label>
+                            <select id="source" name="source" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                                <option value="">Select Source</option>
+                                <option value="TMC">TMC</option>
+                                <option value="TMAP">TMAP</option>
+                                <option value="TMAP-OIL">TMAP-OIL</option>
+                                <option value="TMHC">TMHC</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                        </div>
+
+                        <!-- Invoice -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="invoice">
+                                Invoice <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="invoice" name="invoice" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter invoice number" required>
+                        </div>
+
+                        <!-- No of Container -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="noOfContainer">
+                                No of Containers <span class="text-red-500">*</span>
+                            </label>
+                            <input type="number" id="noOfContainer" name="noOfContainer" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter number of containers" required>
+                        </div>
+
+                        <!-- Container Size -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="containerSize">
+                                Container Size <span class="text-red-500">*</span>
+                            </label>
+                            <select id="containerSize" name="containerSize" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                                <option value="40 feet" selected>40 feet</option>
+                                <option value="20 feet">20 feet</option>
+                            </select>
+                        </div>
+
+                        <!-- Bahrain ETA -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="bahrainETA">
+                                Bahrain ETA <span class="text-red-500">*</span>
+                            </label>
+                            <input type="date" id="bahrainETA" name="bahrainETA" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                        </div>
+
+                        <!-- Original Document Receipt Date -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="originalDocReceiptDate">
+                                Original Document Receipt Date
+                            </label>
+                            <input type="date" id="originalDocReceiptDate" name="originalDocReceiptDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Actual Bahrain ETA -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="actualBahrainETA">
+                                Actual Bahrain ETA
+                            </label>
+                            <input type="date" id="actualBahrainETA" name="actualBahrainETA" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Last Storage Day -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="lastStorageDay">
+                                Last Storage Day
+                            </label>
+                            <input type="date" id="lastStorageDay" name="lastStorageDay" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- W/H ETA (Requested by Parts) -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="whEtaRequested">
+                                W/H ETA (Requested by Parts)
+                            </label>
+                            <input type="date" id="whEtaRequested" name="whEtaRequested" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- W/H ETA Confirmed by Logistics -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="whEtaConfirmed">
+                                W/H ETA Confirmed by Logistics
+                            </label>
+                            <input type="date" id="whEtaConfirmed" name="whEtaConfirmed" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Cleared -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="cleared">
+                                Cleared
+                            </label>
+                            <select id="cleared" name="cleared" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                <option value="">Select Status</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <!-- Actual Cleared Date -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="actualClearedDate">
+                                Actual Cleared Date
+                            </label>
+                            <input type="date" id="actualClearedDate" name="actualClearedDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Total Cases -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="totalCases">
+                                Total Cases
+                            </label>
+                            <input type="number" id="totalCases" name="totalCases" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter total cases">
+                        </div>
+
+                        <!-- Dom Lines -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="domLines">
+                                Dom Lines
+                            </label>
+                            <input type="number" id="domLines" name="domLines" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter domestic lines">
+                        </div>
+
+                        <!-- Bulk Lines -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="bulkLines">
+                                Bulk Lines
+                            </label>
+                            <input type="number" id="bulkLines" name="bulkLines" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter bulk lines">
+                        </div>
+
+                        <!-- Total Lines -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="totalLines">
+                                Total Lines
+                            </label>
+                            <input type="number" id="totalLines" name="totalLines" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter total lines">
+                        </div>
+
+                        <!-- BL No -->
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="blNo">
+                                BL No
+                            </label>
+                            <input type="text" id="blNo" name="blNo" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter BL number">
+                        </div>
+                    </div>
+
+                    <!-- Remarks Section -->
+                    <div class="mb-8">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Remarks</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2" for="remarks1">
+                                    Remarks 1
+                                </label>
+                                <textarea id="remarks1" name="remarks1" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter remarks"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2" for="remarks2">
+                                    Remarks 2
+                                </label>
+                                <textarea id="remarks2" name="remarks2" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter remarks"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex flex-col sm:flex-row justify-end gap-4 pt-6 border-t border-gray-200">
+                        <button type="button" id="cancel-btn" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition">
+                            Save Shipment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="md:hidden bg-white border-t border-gray-200 fixed bottom-0 w-full">
+            <div class="flex justify-around">
+                <a href="dashboard.html" class="flex flex-col items-center py-3 text-gray-500">
+                    <i data-feather="home" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Home</span>
+                </a>
+                <a href="tasks.html" class="flex flex-col items-center py-3 text-gray-500">
+                    <i data-feather="check-square" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Tasks</span>
+                </a>
+                <a href="shipments.html" class="flex flex-col items-center py-3 text-indigo-600">
+                    <i data-feather="truck" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Shipments</span>
+                </a>
+                <a href="complaints.html" class="flex flex-col items-center py-3 text-gray-500">
+                    <i data-feather="alert-circle" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Complaints</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        AOS.init();
+        feather.replace();
+        
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-menu').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        });
+
+        // Cancel button functionality
+        document.getElementById('cancel-btn').addEventListener('click', function() {
+            window.location.href = 'shipments.html';
+        });
+    </script>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        document.getElementById('shipment-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const shipmentData = {};
+            for (let [key, value] of formData.entries()) {
+                shipmentData[key] = value;
+            }
+            // Validate required fields
+            const requiredFields = ['source', 'invoice', 'noOfContainer', 'containerSize', 'bahrainETA'];
+            let isValid = true;
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!shipmentData[field]) {
+                    element.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    element.classList.remove('border-red-500');
+                }
+            });
+            if (!isValid) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            // Add timestamp
+            shipmentData.createdAt = serverTimestamp();
+            try {
+                await addDoc(collection(db, 'shipments'), shipmentData);
+                alert('Shipment saved successfully!');
+                window.location.href = 'shipments.html';
+            } catch (error) {
+                console.error('Error saving shipment:', error);
+                alert('Failed to save shipment. Please try again.');
+            }
+        });
+        // Set default container size
+        document.getElementById('containerSize').value = '40 feet';
+    </script>
+</body>
+</html>

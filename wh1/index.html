@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | WBA</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-indigo-700">Sign In</h2>
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 mb-1">Email</label>
+        <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Enter your email">
+      </div>
+      <div>
+        <label class="block text-gray-700 mb-1">Password</label>
+        <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Enter your password">
+      </div>
+      <div class="flex items-center justify-between">
+        <button type="submit" id="loginBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg">Login</button>
+        <button type="button" id="forgotPasswordBtn" class="text-indigo-600 hover:underline text-sm">Forgot Password?</button>
+      </div>
+      <div id="loginError" class="text-red-600 text-sm mt-2 hidden"></div>
+      <div id="loginSuccess" class="text-green-600 text-sm mt-2 hidden"></div>
+    </form>
+    <div class="text-center mt-4">
+      <button id="showRegisterBtn" class="text-indigo-600 hover:underline text-sm">Create Account</button>
+    </div>
+    <!-- Registration Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
+        <button id="closeRegisterModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
+        <h2 class="text-xl font-bold mb-4 text-center text-indigo-700">Create Account</h2>
+        <form id="registerForm" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 mb-1">Name</label>
+            <input type="text" id="registerName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Enter your name">
+          </div>
+          <div>
+            <label class="block text-gray-700 mb-1">Email</label>
+            <input type="email" id="registerEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Enter your email">
+          </div>
+          <div>
+            <label class="block text-gray-700 mb-1">Password</label>
+            <input type="password" id="registerPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Enter a password">
+          </div>
+          <div>
+            <label class="block text-gray-700 mb-1">Role</label>
+            <select id="registerRole" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+              <option value="">Select a role</option>
+              <option value="Admin">Admin</option>
+              <option value="Manager">Manager</option>
+              <option value="Supervisor">Supervisor</option>
+              <option value="Team leader">Team leader</option>
+              <option value="Associate">Associate</option>
+              <option value="Driver">Driver</option>
+              <option value="Contract staff">Contract staff</option>
+            </select>
+          </div>
+          <button type="submit" id="registerBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg w-full">Register</button>
+          <div id="registerError" class="text-red-600 text-sm mt-2 hidden"></div>
+          <div id="registerSuccess" class="text-green-600 text-sm mt-2 hidden"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+  import { firebaseConfig } from './firebase-config.js';
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+  const loginForm = document.getElementById('loginForm');
+  const loginError = document.getElementById('loginError');
+  const loginSuccess = document.getElementById('loginSuccess');
+  const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+  const loginBtn = document.getElementById('loginBtn');
+  // Registration elements
+  const showRegisterBtn = document.getElementById('showRegisterBtn');
+  const registerModal = document.getElementById('registerModal');
+  const closeRegisterModal = document.getElementById('closeRegisterModal');
+  const registerForm = document.getElementById('registerForm');
+  const registerBtn = document.getElementById('registerBtn');
+  const registerError = document.getElementById('registerError');
+  const registerSuccess = document.getElementById('registerSuccess');
+  let loading = false;
+    // Show/hide registration modal
+    showRegisterBtn.addEventListener('click', () => {
+      registerModal.classList.remove('hidden');
+    });
+    closeRegisterModal.addEventListener('click', () => {
+      registerModal.classList.add('hidden');
+      registerForm.reset();
+      registerError.classList.add('hidden');
+      registerSuccess.classList.add('hidden');
+    });
+
+    // Registration logic
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      registerError.classList.add('hidden');
+      registerSuccess.classList.add('hidden');
+      registerBtn.disabled = true;
+      registerBtn.textContent = 'Registering...';
+      const name = document.getElementById('registerName').value.trim();
+      const email = document.getElementById('registerEmail').value.trim();
+      const password = document.getElementById('registerPassword').value;
+      const role = document.getElementById('registerRole').value;
+      if (!role) {
+        registerError.textContent = 'Please select a role.';
+        registerError.classList.remove('hidden');
+        registerBtn.disabled = false;
+        registerBtn.textContent = 'Register';
+        return;
+      }
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        // Save user profile in Firestore
+        await setDoc(doc(db, 'users', user.uid), {
+          name: name,
+          email: email,
+          role: role,
+          createdAt: new Date().toISOString()
+        });
+        registerSuccess.textContent = 'Account created! You can now log in.';
+        registerSuccess.classList.remove('hidden');
+        setTimeout(() => {
+          registerModal.classList.add('hidden');
+          registerForm.reset();
+        }, 1200);
+      } catch (err) {
+        let msg = 'Registration failed. ';
+        if (err.code === 'auth/email-already-in-use') msg += 'Email already in use.';
+        else if (err.code === 'auth/invalid-email') msg += 'Invalid email address.';
+        else if (err.code === 'auth/weak-password') msg += 'Password should be at least 6 characters.';
+        else msg += err.message;
+        registerError.textContent = msg;
+        registerError.classList.remove('hidden');
+      } finally {
+        registerBtn.disabled = false;
+        registerBtn.textContent = 'Register';
+      }
+    });
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (loading) return;
+      loginError.classList.add('hidden');
+      loginSuccess.classList.add('hidden');
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Logging in...';
+      loading = true;
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          loginSuccess.textContent = `Welcome, ${userData.name || user.email}! Redirecting...`;
+          loginSuccess.classList.remove('hidden');
+          // Store user info if needed
+          localStorage.setItem('loggedInUser', user.email);
+          localStorage.setItem('userRole', userData.role || 'user');
+          localStorage.setItem('isLoggedIn', 'true');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1200);
+        } else {
+          loginError.textContent = 'User profile not found in database.';
+          loginError.classList.remove('hidden');
+        }
+      } catch (err) {
+        let msg = 'Login failed. ';
+        if (err.code === 'auth/user-not-found') msg += 'User not found.';
+        else if (err.code === 'auth/wrong-password') msg += 'Incorrect password.';
+        else if (err.code === 'auth/invalid-email') msg += 'Invalid email address.';
+        else if (err.code === 'auth/too-many-requests') msg += 'Too many attempts. Try again later.';
+        else msg += err.message;
+        loginError.textContent = msg;
+        loginError.classList.remove('hidden');
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Login';
+        loading = false;
+      }
+    });
+
+    forgotPasswordBtn.addEventListener('click', async () => {
+      loginError.classList.add('hidden');
+      loginSuccess.classList.add('hidden');
+      const email = document.getElementById('email').value.trim();
+      if (!email) {
+        loginError.textContent = 'Please enter your email to reset password.';
+        loginError.classList.remove('hidden');
+        return;
+      }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        loginSuccess.textContent = 'Password reset email sent! Check your inbox.';
+        loginSuccess.classList.remove('hidden');
+      } catch (err) {
+        loginError.textContent = 'Failed to send reset email: ' + err.message;
+        loginError.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

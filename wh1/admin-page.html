@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    window.firebaseConfig = {
+      apiKey: "AIzaSyDqi_NLPG6qQfPDNv4q2EagXk7kyhsFLbU",
+      authDomain: "expotracker-6e353.firebaseapp.com",
+      databaseURL: "https://expotracker-6e353-default-rtdb.firebaseio.com",
+      projectId: "expotracker-6e353",
+      storageBucket: "expotracker-6e353.appspot.com",
+      messagingSenderId: "980879059261",
+      appId: "1:980879059261:web:b1086110b963ee190dfd54",
+      measurementId: "G-LG7KRYCFHQ"
+    };
+  </script>
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | WBA</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen p-4">
+      <div class="flex items-center space-x-3 mb-8">
+        <div class="bg-indigo-100 rounded-lg p-2">
+          <i data-feather="box" class="text-indigo-600 w-5 h-5"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">WBA Dashboard</span>
+      </div>
+      <nav class="space-y-2 mb-4">
+        <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+          <i data-feather="home" class="w-5 h-5 mr-3"></i> Dashboard
+        </a>
+        <a href="tasks.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+          <i data-feather="check-square" class="w-5 h-5 mr-3"></i> Tasks
+        </a>
+        <a href="shipments.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+          <i data-feather="truck" class="w-5 h-5 mr-3"></i> Shipments
+        </a>
+        <a href="complaints.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+          <i data-feather="alert-circle" class="w-5 h-5 mr-3"></i> Complaints
+        </a>
+        <a href="admin-page.html" class="flex items-center px-4 py-3 rounded-lg text-indigo-700 bg-indigo-50 font-semibold" id="adminPanelLink">
+          <i data-feather="settings" class="w-5 h-5 mr-3"></i> Admin Panel
+        </a>
+      </nav>
+      <div class="mt-2">
+        <div class="flex items-center space-x-2 mb-2">
+          <i data-feather="user" class="w-4 h-4 text-gray-400"></i>
+          <span class="user-email text-gray-700 text-sm">asif1001@gmail.com</span>
+        </div>
+        <button onclick="logout()" class="flex items-center w-full px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg">
+          <i data-feather="log-out" class="w-5 h-5 mr-2"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10">
+      <h1 class="text-3xl font-bold mb-6 text-indigo-700">Admin Dashboard</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- User Management -->
+        <section class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-4">User Management</h2>
+          <button id="openCreateUserModal" class="mb-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 flex items-center">
+            <i data-feather="user-plus" class="w-4 h-4 mr-2"></i> Create User
+          </button>
+          <div id="userList" class="overflow-x-auto">
+            <p>Loading users...</p>
+          </div>
+          <!-- Create User Modal -->
+          <div id="createUserModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl p-4 md:p-8 transition-all duration-200">
+              <h3 class="text-2xl font-bold mb-6 text-indigo-700">Create New User</h3>
+              <form id="createUserForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-gray-700 mb-1">Name</label>
+                  <input type="text" name="name" class="w-full border rounded px-3 py-2" required />
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-1">Email (UserID)</label>
+                  <input type="email" name="email" class="w-full border rounded px-3 py-2" required />
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-1">Password</label>
+                  <input type="password" name="password" class="w-full border rounded px-3 py-2" required minlength="6" autocomplete="new-password" />
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-1">Employee No</label>
+                  <input type="text" name="empNo" class="w-full border rounded px-3 py-2" required />
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-1">Work Location</label>
+                  <input type="text" name="workLocation" class="w-full border rounded px-3 py-2" required />
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-1">Staff Type</label>
+                  <select name="staffType" id="staffTypeSelect" class="w-full border rounded px-3 py-2" required>
+                    <option value="ekk-staff">EKK Staff</option>
+                    <option value="contract-staff">Contract Staff</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-1">Role</label>
+                  <select name="role" id="roleSelect" class="w-full border rounded px-3 py-2" required>
+                    <option value="admin">Admin</option>
+                    <option value="contract-staff">Contract Staff</option>
+                    <option value="warehouse-staff">Warehouse Staff</option>
+                    <option value="driver">Driver</option>
+                    <option value="manager">Manager</option>
+                    <option value="supervisor">Supervisor</option>
+                    <option value="inventory">Inventory</option>
+                  </select>
+                </div>
+
+<script>
+// Auto-set role to Contract Staff if staff type is Contract Staff
+document.addEventListener('DOMContentLoaded', function() {
+  const staffTypeSelect = document.getElementById('staffTypeSelect');
+  const roleSelect = document.getElementById('roleSelect');
+  if (staffTypeSelect && roleSelect) {
+    staffTypeSelect.addEventListener('change', function() {
+      if (staffTypeSelect.value === 'contract-staff') {
+        roleSelect.value = 'contract-staff';
+        roleSelect.disabled = true;
+      } else {
+        roleSelect.disabled = false;
+        // Optionally reset to default role
+        roleSelect.value = 'admin';
+      }
+    });
+    // On modal open, trigger change to set correct state
+    staffTypeSelect.dispatchEvent(new Event('change'));
+  }
+});
+</script>
+                <div class="md:col-span-2 flex justify-end space-x-2 mt-6">
+                  <button type="button" id="closeCreateUserModal" class="px-6 py-2 bg-gray-200 rounded hover:bg-gray-300 text-base">Cancel</button>
+                  <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-base">Create</button>
+                </div>
+                <div id="createUserError" class="md:col-span-2 text-red-600 text-sm mt-2 hidden"></div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- System Stats -->
+        <section class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-4">System Stats</h2>
+          <ul class="list-disc pl-6 text-gray-700" id="systemStats">
+            <li>Loading stats...</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.feather) feather.replace();
+
+      // Initialize Firebase
+      if (!firebase.apps.length && window.firebaseConfig) {
+        firebase.initializeApp(window.firebaseConfig);
+      }
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+      // Load users
+      async function loadUsers() {
+        const userList = document.getElementById('userList');
+        try {
+          const usersSnap = await db.collection('users').get();
+          if (usersSnap.empty) {
+            userList.innerHTML = '<p>No users found.</p>';
+            return;
+          }
+          let html = '<table class="min-w-full text-sm"><thead><tr><th class="px-4 py-2">Name</th><th class="px-4 py-2">Email</th><th class="px-4 py-2">Role</th><th class="px-4 py-2">Actions</th></tr></thead><tbody>';
+          usersSnap.forEach(doc => {
+            const u = doc.data();
+            html += `<tr>
+              <td class="border px-4 py-2">${u.name || ''}</td>
+              <td class="border px-4 py-2">${u.email || ''}</td>
+              <td class="border px-4 py-2">${u.role || ''}</td>
+              <td class="border px-4 py-2">
+                <button class="edit-user-btn text-indigo-600 hover:underline mr-2" data-id="${doc.id}" data-name="${u.name || ''}" data-email="${u.email || ''}" data-role="${u.role || ''}">Edit</button>
+                <button class="delete-user-btn text-red-600 hover:underline" data-id="${doc.id}">Delete</button>
+              </td>
+            </tr>`;
+          });
+          html += '</tbody></table>';
+          userList.innerHTML = html;
+          // Attach event listeners for edit/delete
+          document.querySelectorAll('.delete-user-btn').forEach(btn => {
+            btn.onclick = async function() {
+              if (confirm('Are you sure you want to delete this user?')) {
+                const uid = btn.getAttribute('data-id');
+                // 1. Delete from Firestore
+                await db.collection('users').doc(uid).delete();
+                // 2. Delete from Auth (if current user is the one being deleted)
+                try {
+                  if (auth.currentUser && auth.currentUser.uid === uid) {
+                    await auth.currentUser.delete();
+                  }
+                  // Note: For full admin deletion, use Firebase Admin SDK on backend
+                } catch (e) {}
+                loadUsers();
+              }
+            };
+          });
+          document.querySelectorAll('.edit-user-btn').forEach(btn => {
+            btn.onclick = function() {
+              openEditUserModal({
+                id: btn.getAttribute('data-id'),
+                name: btn.getAttribute('data-name'),
+                email: btn.getAttribute('data-email'),
+                role: btn.getAttribute('data-role')
+              });
+            };
+          });
+    // Edit User Modal
+    // Add modal HTML
+    const editUserModalHtml = `
+      <div id="editUserModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+          <h3 class="text-lg font-bold mb-4">Edit User</h3>
+          <form id="editUserForm" class="space-y-4">
+            <input type="hidden" name="id" />
+            <div>
+              <label class="block text-gray-700 mb-1">Name</label>
+              <input type="text" name="name" class="w-full border rounded px-3 py-2" required />
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-1">Email</label>
+              <input type="email" name="email" class="w-full border rounded px-3 py-2" required />
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-1">Role</label>
+              <select name="role" class="w-full border rounded px-3 py-2" required>
+                <option value="admin">Admin</option>
+                <option value="contract-staff">Contract Staff</option>
+                <option value="warehouse-staff">Warehouse Staff</option>
+                <option value="driver">Driver</option>
+                <option value="manager">Manager</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="inventory">Inventory</option>
+              </select>
+            </div>
+            <div class="flex justify-end space-x-2 mt-6">
+              <button type="button" id="closeEditUserModal" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Cancel</button>
+              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+            </div>
+            <div id="editUserError" class="text-red-600 text-sm mt-2 hidden"></div>
+          </form>
+        </div>
+      </div>
+    `;
+    if (!document.getElementById('editUserModal')) {
+      document.body.insertAdjacentHTML('beforeend', editUserModalHtml);
+    }
+    const editUserModal = document.getElementById('editUserModal');
+    const editUserForm = document.getElementById('editUserForm');
+    const editUserError = document.getElementById('editUserError');
+    const closeEditUserModalBtn = document.getElementById('closeEditUserModal');
+
+    function openEditUserModal(user) {
+      editUserForm.id.value = user.id;
+      editUserForm.name.value = user.name;
+      editUserForm.email.value = user.email;
+      editUserForm.role.value = user.role;
+      editUserModal.classList.remove('hidden');
+      editUserError.classList.add('hidden');
+      editUserError.textContent = '';
+    }
+    if (closeEditUserModalBtn) {
+      closeEditUserModalBtn.onclick = () => {
+        editUserModal.classList.add('hidden');
+      };
+    }
+    if (editUserForm) {
+      editUserForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const id = editUserForm.id.value;
+        const name = editUserForm.name.value;
+        const email = editUserForm.email.value;
+        const role = editUserForm.role.value;
+        try {
+          await db.collection('users').doc(id).update({ name, email, role });
+          // If email changed and user is current user, update Auth email
+          if (auth.currentUser && auth.currentUser.uid === id && auth.currentUser.email !== email) {
+            await auth.currentUser.updateEmail(email);
+          }
+          editUserModal.classList.add('hidden');
+          loadUsers();
+        } catch (err) {
+          editUserError.textContent = 'Failed to update user.';
+          editUserError.classList.remove('hidden');
+        }
+      };
+    }
+        } catch (err) {
+          userList.innerHTML = '<p class="text-red-600">Failed to load users.</p>';
+        }
+      }
+      loadUsers();
+
+      // Modal logic
+      const openModalBtn = document.getElementById('openCreateUserModal');
+      const closeModalBtn = document.getElementById('closeCreateUserModal');
+      const createUserModal = document.getElementById('createUserModal');
+      const createUserForm = document.getElementById('createUserForm');
+      const createUserError = document.getElementById('createUserError');
+
+      if (openModalBtn && closeModalBtn && createUserModal && createUserForm) {
+        openModalBtn.onclick = () => {
+          createUserModal.classList.remove('hidden');
+          createUserError.classList.add('hidden');
+          createUserError.textContent = '';
+        };
+        closeModalBtn.onclick = () => {
+          createUserModal.classList.add('hidden');
+        };
+        createUserForm.onsubmit = async (e) => {
+          e.preventDefault();
+          const formData = new FormData(createUserForm);
+          const name = formData.get('name');
+          const email = formData.get('email');
+          const password = formData.get('password');
+          const empNo = formData.get('empNo');
+          const workLocation = formData.get('workLocation');
+          const staffType = formData.get('staffType');
+          const role = formData.get('role');
+          if (!name || !email || !password || !empNo || !workLocation || !staffType || !role) {
+            createUserError.textContent = 'Please fill in all required fields.';
+            createUserError.classList.remove('hidden');
+            return;
+          }
+          try {
+            // 1. Create user in Firebase Auth
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const uid = userCredential.user.uid;
+            // 2. Save user details in Firestore (do NOT save password)
+            await db.collection('users').doc(uid).set({
+              name, email, empNo, workLocation, staffType, role, uid
+            });
+            createUserModal.classList.add('hidden');
+            createUserForm.reset();
+            loadUsers();
+          } catch (err) {
+            createUserError.textContent = err && err.message ? err.message : 'Failed to create user.';
+            createUserError.classList.remove('hidden');
+          }
+        };
+      }
+
+      // System stats placeholder
+      document.getElementById('systemStats').innerHTML = `
+        <li>Total Users: <span class="font-semibold">Loading...</span></li>
+        <li>Total Shipments: <span class="font-semibold">Loading...</span></li>
+        <li>System Health: <span class="text-green-600 font-semibold">Good</span></li>
+      `;
+    });
+  </script>
+</body>
+</html>

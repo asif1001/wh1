@@ -1,0 +1,107 @@
+Think like a Sr. developer and Build a **Web-Based App (WBA)** that is **installable as a PWA** on both desktop and mobile. The app should be **professional, modern, colorful, and very user-friendly**.
+
+**Pages Required:**
+
+1. **Login Page** – simple centered login card with company logo, email/password fields, and a primary login button.
+2. **Home Page (Dashboard)** – card-based overview showing key metrics (tasks, shipments, complaints) and quick action buttons.
+3. **Task Manager** – list of tasks with filters, status tags, and a floating ‘Add Task’ button.
+4. **Shipment Monitor** – shipment tracking with table/cards, search bar, filters, and status color indicators (green = on time, red = delayed).
+5. **Complaint Report** – submission form with fields (type, description, file upload) and a list view showing complaints with colored priority labels.
+
+**Design Guidelines:**
+
+* Use a **modern color palette**
+* Card-based layout with rounded corners and shadows.
+* Clear **button hierarchy** (primary, secondary, danger).
+* Navigation: sidebar for desktop, bottom nav for mobile.
+* Consistent typography and spacing for a professional feel.
+* Must be **responsive** and **installable as a PWA** for desktop & mobile.”
+
+
+
+Think like a Sr. Developer and architect designed it very well and look good and user friendly 
+Create a **Shipments Form** in the **Shipments page** (Add Shipment) with the following fields as per attached table:
+
+1. **Source** – Choice (TMC, TMAP, TMAP-OIL, TMHC, OTHER)
+2. **Invoice** – Input field (text)
+3. **No of Container** – Number input field
+4. **Container Size** – Choice (40 feet, 20 feet; default = 40 feet)
+5. **Bahrain ETA** – Date format
+6. **Original Document Receipt Date** – Date format
+7. **Actual Bahrain ETA** – Date format
+8. **Last Storage Day** – Date format
+9. **W/H ETA (Requested by Parts)** – Date format
+10. **W/H ETA Confirmed by Logistics** – Date format
+11. **Cleared** – Choice (Yes / No)
+12. **Actual Cleared Date** – Date format
+13. **Total Cases** – Number input
+14. **Dom Lines** – Number input
+15. **Bulk Lines** – Number input
+16. **Total Lines** – Number input
+17. **Remarks 1** – Text field
+18. **Remarks 2** – Text field
+19. **BL No** – Text field
+
+Additional requirements:
+
+* All fields must be properly labeled.
+* Use a **clean form layout** with responsive design.
+* Validation: Ensure required fields cannot be left empty (Source, Invoice, No of Container, Container Size, ETA).
+* Default values (if any) should auto-fill (e.g., Container Size = 40 feet).
+* Save button → Saves to Firestore under `shipments` collection.
+* Cancel button → Returns to Shipments dashboard without saving.
+
+can you rethink on the from of add new shipment and make it look professional from 
+can you rethink on the from of add new shipment and make it look professional from 
+can you rethink on the from of add new shipment and make it look professional from 
+think like a Sr. Architect app developer and make "New Shipment" Modala more bigger to fit desktop screen properly 
+Think like a Sr. Developer and Create a **Task Manager Form** in add task with the following fields:
+
+**Basic Task Details:**
+
+* Task Title (text, required)
+* Description (textarea, optional)
+
+**Assignment & Ownership:**
+
+* Assigned To (dropdown of users)
+* Created By (auto-fill from logged-in user)
+
+**Status & Progress:**
+
+* Status (choice: To Do, In Progress, On Hold, Completed)
+* Priority (choice: Low, Medium, High, Urgent)
+
+**Dates & Deadlines:**
+
+* Start Date (date)
+* Due Date (date)
+* Completion Date (date, auto-filled when status = Completed)
+
+**Categorization:**
+
+* Category / Department (choice list)
+* Project / Reference ID (optional text)
+
+**Progress & Notes:**
+
+* Progress % (slider 0–100)
+* Remarks / Comments (text area)
+
+**Attachments:**
+
+* File Upload (optional)
+
+**System Fields (auto-handled):**
+
+* Task ID (auto-generate)
+* Created At / Updated At (timestamps)
+
+### Requirements:
+
+* Form should be clean and responsive.
+* Mandatory fields: Task Title, Assigned To, Status, Priority, Due Date.
+* Save button → store in Firestore under `tasks` collection.
+* Cancel button → close form without saving.
+ 
+instate of creating "Create New Task" modala can we make this from inside the page ?

@@ -1,0 +1,189 @@
+<!-- sidebar.html: Reusable Sidebar Component for WBA Dashboard -->
+<aside id="sidebar" class="sidebar bg-white dark:bg-gray-900 shadow-md h-screen sticky top-0 flex flex-col transition-all duration-300 w-64 md:w-64">
+    <div class="p-6">
+        <div class="flex items-center space-x-3">
+            <div class="bg-indigo-100 rounded-lg p-2">
+                <i data-feather="box" class="text-indigo-600 w-6 h-6"></i>
+            </div>
+            <h1 class="text-xl font-bold text-gray-800">WBA Dashboard</h1>
+        </div>
+    </div>
+</nav>
+        <nav class="flex-1 mt-4">
+            <ul class="space-y-1">
+                <li>
+                    <a href="dashboard.html" class="sidebar-link" data-page="dashboard">
+                        <i data-feather="home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="sidebar-link" data-page="tasks">
+                        <i data-feather="check-square"></i>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="shipments.html" class="sidebar-link" data-page="shipments">
+                        <i data-feather="truck"></i>
+                        <span>Shipments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="complaints.html" class="sidebar-link" data-page="complaints">
+                        <i data-feather="alert-circle"></i>
+                        <span>Complaints</span>
+                    </a>
+                </li>
+                <li class="sidebar-divider"></li>
+                <li class="role-admin role-manager hidden">
+                    <a href="user-management.html" class="sidebar-link" data-page="user-management">
+                        <i data-feather="users"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li class="role-admin hidden">
+                    <a href="admin-page.html" class="sidebar-link" data-page="admin">
+                        <i data-feather="settings"></i>
+                        <span>Admin Panel</span>
+                    </a>
+                </li>
+                <li class="role-admin role-manager hidden">
+                    <a href="reports.html" class="sidebar-link" data-page="reports">
+                        <i data-feather="bar-chart-2"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html" class="sidebar-link" data-page="settings">
+                        <i data-feather="sliders"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="sidebar-divider"></li>
+                <li>
+                    <a href="profile.html" class="sidebar-link" data-page="profile">
+                        <i data-feather="user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()" class="sidebar-link text-red-600 hover:text-red-800" data-page="logout">
+                        <i data-feather="log-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="p-4 border-t flex items-center space-x-3">
+            <img src="user-avatar.png" alt="User Avatar" class="w-10 h-10 rounded-full" />
+            <div>
+                <p class="text-sm text-gray-700 dark:text-gray-200 user-name">User Name</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 user-role">Role</p>
+            </div>
+        </div>
+</aside>
+<script>
+    // Sidebar toggle for mobile
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'sidebar-toggle') {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        }
+    });
+    // Role-based visibility
+    const role = localStorage.getItem('userRole') || 'user';
+    document.querySelectorAll('.role-admin').forEach(el => {
+        if (role === 'admin') el.classList.remove('hidden');
+    });
+    document.querySelectorAll('.role-manager').forEach(el => {
+        if (role === 'manager' || role === 'admin') el.classList.remove('hidden');
+    });
+    // Set user info
+    document.querySelector('.user-name').textContent = localStorage.getItem('userName') || 'User';
+    document.querySelector('.user-role').textContent = role.charAt(0).toUpperCase() + role.slice(1);
+    // Highlight active page
+    const page = location.pathname.split('/').pop().replace('.html', '');
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        if (link.dataset.page === page) link.classList.add('active');
+        link.setAttribute('title', link.textContent.trim()); // Tooltip
+    });
+    // Feather icons
+    if (window.feather) feather.replace();
+    // Example logout function
+    window.logout = function() {
+        localStorage.clear();
+        window.location.href = 'index.html';
+    }
+</script>
+<style>
+    .sidebar { width: 16rem; min-width: 4rem; }
+    .sidebar.collapsed { width: 4rem; }
+    .sidebar-link {
+        display: flex; align-items: center; gap: 0.75rem;
+        padding: 0.75rem 1.5rem; border-radius: 0.5rem;
+        color: #374151; transition: background 0.2s, color 0.2s;
+        position: relative;
+    }
+    .sidebar-link.active, .sidebar-link:hover {
+        background: #f3f4f6; color: #4f46e5;
+    }
+    .sidebar.collapsed .sidebar-link span { display: none; }
+    .sidebar-divider { border-top: 1px solid #e5e7eb; margin: 0.5rem 0; }
+    @media (max-width: 768px) {
+        .sidebar { position: fixed; z-index: 50; left: 0; top: 0; height: 100vh; transform: translateX(-100%); transition: transform 0.3s; }
+        .sidebar.open { transform: translateX(0); }
+    }
+    /* Dark mode support */
+    .dark .sidebar { background: #1f2937; }
+    .dark .sidebar-link { color: #d1d5db; }
+    .dark .sidebar-link.active, .dark .sidebar-link:hover { background: #374151; color: #818cf8; }
+</style>
+</aside>
+<body class="bg-gray-50 min-h-screen flex">
+    <!-- Desktop Sidebar -->
+    <aside class="hidden md:block w-64 bg-white shadow-md h-screen sticky top-0">
+        <div class="p-6">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-100 rounded-lg p-2">
+                    <i data-feather="box" class="text-indigo-600 w-6 h-6"></i>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800">WBA Dashboard</h1>
+            </div>
+        </div>
+        <nav class="mt-6">
+            <a id="adminPanelLink" href="admin-page.html" class="flex items-center space-x-3 px-6 py-3 text-red-700 hover:bg-red-100 font-semibold hidden">
+                <i data-feather="settings"></i>
+                <span>Admin Panel</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 px-6 py-3 bg-indigo-50 text-indigo-700 border-l-4 border-indigo-700">
+                <i data-feather="home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="tasks.html" class="flex items-center space-x-3 px-6 py-3 text-gray-600 hover:bg-gray-100">
+                <i data-feather="check-square"></i>
+                <span>Task Manager</span>
+            </a>
+            <a href="shipments.html" class="flex items-center space-x-3 px-6 py-3 text-gray-600 hover:bg-gray-100">
+                <i data-feather="truck"></i>
+                <span>Shipment Monitor</span>
+            </a>
+            <a href="complaints.html" class="flex items-center space-x-3 px-6 py-3 text-gray-600 hover:bg-gray-100">
+                <i data-feather="alert-circle"></i>
+                <span>Complaint Report</span>
+            </a>
+        </nav>
+        
+        <!-- User Info & Logout -->
+        <div class="absolute bottom-0 left-0 right-0 p-6 border-t bg-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-600">Logged in as:</p>
+                    <p class="text-sm font-medium text-gray-800 user-email">Loading...</p>
+                </div>
+                <button onclick="logout()" class="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50">
+                    <i data-feather="log-out" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+</script>
